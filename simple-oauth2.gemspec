@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'simple/oauth2/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "simple-oauth2"
-  spec.version       = Simple::Oauth2::VERSION
+  spec.version       = '0.1.1'
   spec.authors       = ["Mitch Stewart"]
   spec.email         = ["mitch.stewart.io@gmail.com"]
 
