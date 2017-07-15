@@ -1,4 +1,3 @@
-require "simple/oauth2/version"
 require "faraday"
 require "addressable/template"
 require "addressable/uri"
@@ -32,6 +31,12 @@ module Simple
 
         @access_token = props[:access_token]
         @refresh_token = props[:refresh_token]
+      end
+
+      class << self
+        def hi
+          puts 'Hello world'
+        end
       end
 
       # Returns a new access token.
