@@ -33,14 +33,7 @@ module Simple
         @refresh_token = props[:refresh_token]
       end
 
-      class << self
-        def hi
-          puts 'Hello world'
-        end
-      end
-
       # Returns a new access token.
-      # Returns reply { access_token, expires_in }
       def new_access_token
         params = Addressable::URI.new
         params.query_values = {
@@ -61,7 +54,6 @@ module Simple
       end
 
       # Exchanges a verification code for an access token.
-      # Returns reply { access_token, expires_in }
       def exchange_for_access_token(code)
         params = Addressable::URI.new
         params.query_values = {
@@ -79,6 +71,17 @@ module Simple
           access_token: response['access_token'],
           expires_in: response['expires_in']
         }
+      end
+
+      # Returns redirect url.
+      def redirect_url
+        params = Addressable::URI.new
+        params.query_values = {
+          type: 'web_server',
+          client_id: @client_id,
+          redirect_uri: @redirect_uri,
+        }
+        "#{@base_uri}#{@auth_endpoint}?#{params.query}"
       end
     end
   end

@@ -26,7 +26,7 @@ RSpec.describe Simple::Oauth2 do
   end
 
   # rspec ./spec/simple/oauth2_client_spec.rb:27
-  it "exchanges a verification code for token" do
+  it "exchanges a verification code for an access token" do
     reply = client.exchange_for_access_token(code)
     expect(access_token).not_to be_nil
   end
