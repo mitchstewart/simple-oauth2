@@ -2,10 +2,10 @@ require "faraday"
 require "addressable/template"
 require "addressable/uri"
 require "json"
+require "models/response"
 
 module Simple
   module Oauth2
-    
     class Client
       attr_accessor :client_id,
                     :client_secret,
@@ -43,18 +43,14 @@ module Simple
           redirect_uri: @redirect_uri,
           client_secret: @client_secret
         }
-        uri = "#{@base_uri}#{@token_endpoint}?#{params.query}"
-        conn = Faraday.new(:url => uri)
-        response = conn.post uri
-        response = JSON.parse(response.body)
-        return {
-          access_token: response['access_token'],
-          expires_in: response['expires_in']
-        }
+        url = "#{@base_uri}#{@token_endpoint}?#{params.query}"
+        conn = Faraday.new(:url => url)
+        response = conn.post url
+        Response.new(response.body)
       end
 
       # Exchanges a verification code for an access token.
-      def exchange_for_access_token(code)
+      def exchange(code)
         params = Addressable::URI.new
         params.query_values = {
           type: 'web_server',
@@ -66,11 +62,8 @@ module Simple
         uri = "#{@base_uri}#{@token_endpoint}?#{params.query}"
         conn = Faraday.new(:url => uri)
         response = conn.post uri
-        response = JSON.parse(response.body)
-        return {
-          access_token: response['access_token'],
-          expires_in: response['expires_in']
-        }
+        binding.pry
+        Response.new(response.body)
       end
 
       # Returns redirect url.

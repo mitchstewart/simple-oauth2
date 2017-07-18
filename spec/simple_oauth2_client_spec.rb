@@ -1,5 +1,6 @@
 require "spec_helper"
 require "pry"
+require "simple-oauth2"
 
 RSpec.describe Simple::Oauth2 do
 
@@ -16,18 +17,26 @@ RSpec.describe Simple::Oauth2 do
     )
   }
 
-  let(:code) { 'verification_code' }
+  let(:code) { '8b871e55' }
 
-  # rspec ./spec/simple/oauth2_client_spec.rb:22
+  # rspec ./spec/simple_oauth2_client_spec.rb:22
   it "gets an access token" do
-    reply = client.new_access_token
-    expect(reply.access_token).not_to be_nil
-    expect(reply.expires_in).not_to be_nil
+    response = client.new_access_token
+    expect(response.access_token).not_to be_nil
+    expect(response.expires_at).not_to be_nil
   end
 
-  # rspec ./spec/simple/oauth2_client_spec.rb:27
+  # rspec ./spec/simple_oauth2_client_spec.rb:30
   it "exchanges a verification code for an access token" do
-    reply = client.exchange_for_access_token(code)
-    expect(access_token).not_to be_nil
+    response = client.exchange(code)
+    expect(response.access_token).not_to be_nil
+    expect(response.refresh_token).not_to be_nil
+    expect(response.expires_at).not_to be_nil
+  end
+
+  # rspec ./spec/simple_oauth2_client_spec.rb:38
+  it "gets a redirect url" do
+    redirect_url = client.redirect_url
+    expect(redirect_url).not_to be_nil
   end
 end
