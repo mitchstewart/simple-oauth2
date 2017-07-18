@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "simple-oauth2"
-  spec.version       = '0.1.1'
+  spec.version       = '0.1.2'
   spec.authors       = ["Mitch Stewart"]
   spec.email         = ["mitch.stewart.io@gmail.com"]
 
